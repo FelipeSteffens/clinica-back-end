@@ -50,7 +50,8 @@ export const AnyNull = runtime.objectEnumValues.instances.AnyNull
 
 export const ModelName = {
   Usuario: 'Usuario',
-  Exame: 'Exame'
+  Exame: 'Exame',
+  Token: 'Token'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -89,6 +90,18 @@ export const ExameScalarFieldEnum = {
 } as const
 
 export type ExameScalarFieldEnum = (typeof ExameScalarFieldEnum)[keyof typeof ExameScalarFieldEnum]
+
+
+export const TokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  tipo_token: 'tipo_token',
+  revogado: 'revogado',
+  expirado: 'expirado',
+  usuarioId: 'usuarioId'
+} as const
+
+export type TokenScalarFieldEnum = (typeof TokenScalarFieldEnum)[keyof typeof TokenScalarFieldEnum]
 
 
 export const SortOrder = {
