@@ -11,49 +11,65 @@
  * Please import the `PrismaClient` class from the `client.ts` file instead.
  */
 
-import * as runtime from "@prisma/client/runtime/client"
+import * as runtime from "@prisma/client/runtime/library"
 import type * as Prisma from "./prismaNamespace"
 
 
 const config: runtime.GetPrismaClientConfig = {
-  "previewFeatures": [],
-  "clientVersion": "7.4.2",
-  "engineVersion": "94a226be1cf2967af2541cca5529f0f7ba866919",
+  "generator": {
+    "name": "client",
+    "provider": {
+      "fromEnvVar": null,
+      "value": "prisma-client"
+    },
+    "output": {
+      "value": "C:\\Users\\felipe_b_steffens\\Documents\\clinica-back-end\\src\\prisma\\generated\\prisma",
+      "fromEnvVar": null
+    },
+    "config": {
+      "engineType": "library"
+    },
+    "binaryTargets": [
+      {
+        "fromEnvVar": null,
+        "value": "windows",
+        "native": true
+      }
+    ],
+    "previewFeatures": [],
+    "sourceFilePath": "C:\\Users\\felipe_b_steffens\\Documents\\clinica-back-end\\src\\prisma\\schema.prisma",
+    "isCustomOutput": true
+  },
+  "relativePath": "../..",
+  "clientVersion": "6.19.2",
+  "engineVersion": "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
+  "datasourceNames": [
+    "db"
+  ],
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../prisma/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Usuario {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  nome  String?\n\n  @@map(\"usuario\")\n}\n\nmodel Exame {\n  id         Int      @id @default(autoincrement())\n  tipo_exame String\n  valor      Decimal\n  descricao  String\n  resultado  String\n  data_exame DateTime\n\n  @@map(\"exame\")\n}\n",
+  "inlineDatasources": {
+    "db": {
+      "url": {
+        "fromEnvVar": null,
+        "value": "postgresql://postgres:senai@localhost:5432/clinic?schema=public"
+      }
+    }
+  },
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../prisma/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://postgres:senai@localhost:5432/clinic?schema=public\"\n}\n\nmodel Usuario {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  nome  String?\n  senha String\n\n  @@map(\"usuario\")\n}\n\nmodel Exame {\n  id         Int      @id @default(autoincrement())\n  tipo_exame String\n  valor      Decimal\n  descricao  String\n  resultado  String\n  data_exame DateTime\n\n  @@map(\"exame\")\n}\n",
+  "inlineSchemaHash": "1cd1230ea57c4d0d17a6cb85f85d2d1fcb25a64263e8010fb07ee0933a64d75b",
+  "copyEngine": true,
   "runtimeDataModel": {
     "models": {},
     "enums": {},
     "types": {}
   },
-  "parameterizationSchema": {
-    "strings": [],
-    "graph": ""
-  }
+  "dirname": ""
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Usuario\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nome\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"usuario\"},\"Exame\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"tipo_exame\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"valor\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"descricao\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"resultado\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"data_exame\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"exame\"}},\"enums\":{},\"types\":{}}")
-config.parameterizationSchema = {
-  strings: JSON.parse("[\"where\",\"Usuario.findUnique\",\"Usuario.findUniqueOrThrow\",\"orderBy\",\"cursor\",\"Usuario.findFirst\",\"Usuario.findFirstOrThrow\",\"Usuario.findMany\",\"data\",\"Usuario.createOne\",\"Usuario.createMany\",\"Usuario.createManyAndReturn\",\"Usuario.updateOne\",\"Usuario.updateMany\",\"Usuario.updateManyAndReturn\",\"create\",\"update\",\"Usuario.upsertOne\",\"Usuario.deleteOne\",\"Usuario.deleteMany\",\"having\",\"_count\",\"_avg\",\"_sum\",\"_min\",\"_max\",\"Usuario.groupBy\",\"Usuario.aggregate\",\"Exame.findUnique\",\"Exame.findUniqueOrThrow\",\"Exame.findFirst\",\"Exame.findFirstOrThrow\",\"Exame.findMany\",\"Exame.createOne\",\"Exame.createMany\",\"Exame.createManyAndReturn\",\"Exame.updateOne\",\"Exame.updateMany\",\"Exame.updateManyAndReturn\",\"Exame.upsertOne\",\"Exame.deleteOne\",\"Exame.deleteMany\",\"Exame.groupBy\",\"Exame.aggregate\",\"AND\",\"OR\",\"NOT\",\"id\",\"tipo_exame\",\"valor\",\"descricao\",\"resultado\",\"data_exame\",\"equals\",\"in\",\"notIn\",\"lt\",\"lte\",\"gt\",\"gte\",\"not\",\"contains\",\"startsWith\",\"endsWith\",\"email\",\"nome\",\"set\",\"increment\",\"decrement\",\"multiply\",\"divide\"]"),
-  graph: "XBUgBiwAAEsAMC0AAAQAEC4AAEsAMC8CAAAAAUABAAAAAUEBAEwAIQEAAAABACABAAAAAQAgBiwAAEsAMC0AAAQAEC4AAEsAMC8CAEIAIUABAEMAIUEBAEwAIQFBAABWACADAAAABAAgAwAABQAwBAAAAQAgAwAAAAQAIAMAAAUAMAQAAAEAIAMAAAAEACADAAAFADAEAAABACADLwIAAAABQAEAAAABQQEAAAABAQgAAAkAIAMvAgAAAAFAAQAAAAFBAQAAAAEBCAAACwAwAQgAAAsAMAMvAgBVACFAAQBSACFBAQBcACECAAAAAQAgCAAADgAgAy8CAFUAIUABAFIAIUEBAFwAIQIAAAAEACAIAAAQACACAAAABAAgCAAAEAAgAwAAAAEAIA8AAAkAIBAAAA4AIAEAAAABACABAAAABAAgBhUAAFcAIBYAAFgAIBcAAFsAIBgAAFoAIBkAAFkAIEEAAFYAIAYsAABGADAtAAAXABAuAABGADAvAgA0ACFAAQA1ACFBAQBHACEDAAAABAAgAwAAFgAwFAAAFwAgAwAAAAQAIAMAAAUAMAQAAAEAIAksAABBADAtAAAdABAuAABBADAvAgAAAAEwAQBDACExEABEACEyAQBDACEzAQBDACE0QABFACEBAAAAGgAgAQAAABoAIAksAABBADAtAAAdABAuAABBADAvAgBCACEwAQBDACExEABEACEyAQBDACEzAQBDACE0QABFACEAAwAAAB0AIAMAAB4AMAQAABoAIAMAAAAdACADAAAeADAEAAAaACADAAAAHQAgAwAAHgAwBAAAGgAgBi8CAAAAATABAAAAATEQAAAAATIBAAAAATMBAAAAATRAAAAAAQEIAAAiACAGLwIAAAABMAEAAAABMRAAAAABMgEAAAABMwEAAAABNEAAAAABAQgAACQAMAEIAAAkADAGLwIAVQAhMAEAUgAhMRAAUwAhMgEAUgAhMwEAUgAhNEAAVAAhAgAAABoAIAgAACcAIAYvAgBVACEwAQBSACExEABTACEyAQBSACEzAQBSACE0QABUACECAAAAHQAgCAAAKQAgAgAAAB0AIAgAACkAIAMAAAAaACAPAAAiACAQAAAnACABAAAAGgAgAQAAAB0AIAUVAABNACAWAABOACAXAABRACAYAABQACAZAABPACAJLAAAMwAwLQAAMAAQLgAAMwAwLwIANAAhMAEANQAhMRAANgAhMgEANQAhMwEANQAhNEAANwAhAwAAAB0AIAMAAC8AMBQAADAAIAMAAAAdACADAAAeADAEAAAaACAJLAAAMwAwLQAAMAAQLgAAMwAwLwIANAAhMAEANQAhMRAANgAhMgEANQAhMwEANQAhNEAANwAhDRUAADkAIBYAAEAAIBcAADkAIBgAADkAIBkAADkAIDUCAAAAATYCAAAABDcCAAAABDgCAAAAATkCAAAAAToCAAAAATsCAAAAATwCAD8AIQ4VAAA5ACAYAAA-ACAZAAA-ACA1AQAAAAE2AQAAAAQ3AQAAAAQ4AQAAAAE5AQAAAAE6AQAAAAE7AQAAAAE8AQA9ACE9AQAAAAE-AQAAAAE_AQAAAAENFQAAOQAgFgAAPAAgFwAAPAAgGAAAPAAgGQAAPAAgNRAAAAABNhAAAAAENxAAAAAEOBAAAAABORAAAAABOhAAAAABOxAAAAABPBAAOwAhCxUAADkAIBgAADoAIBkAADoAIDVAAAAAATZAAAAABDdAAAAABDhAAAAAATlAAAAAATpAAAAAATtAAAAAATxAADgAIQsVAAA5ACAYAAA6ACAZAAA6ACA1QAAAAAE2QAAAAAQ3QAAAAAQ4QAAAAAE5QAAAAAE6QAAAAAE7QAAAAAE8QAA4ACEINQIAAAABNgIAAAAENwIAAAAEOAIAAAABOQIAAAABOgIAAAABOwIAAAABPAIAOQAhCDVAAAAAATZAAAAABDdAAAAABDhAAAAAATlAAAAAATpAAAAAATtAAAAAATxAADoAIQ0VAAA5ACAWAAA8ACAXAAA8ACAYAAA8ACAZAAA8ACA1EAAAAAE2EAAAAAQ3EAAAAAQ4EAAAAAE5EAAAAAE6EAAAAAE7EAAAAAE8EAA7ACEINRAAAAABNhAAAAAENxAAAAAEOBAAAAABORAAAAABOhAAAAABOxAAAAABPBAAPAAhDhUAADkAIBgAAD4AIBkAAD4AIDUBAAAAATYBAAAABDcBAAAABDgBAAAAATkBAAAAAToBAAAAATsBAAAAATwBAD0AIT0BAAAAAT4BAAAAAT8BAAAAAQs1AQAAAAE2AQAAAAQ3AQAAAAQ4AQAAAAE5AQAAAAE6AQAAAAE7AQAAAAE8AQA-ACE9AQAAAAE-AQAAAAE_AQAAAAENFQAAOQAgFgAAQAAgFwAAOQAgGAAAOQAgGQAAOQAgNQIAAAABNgIAAAAENwIAAAAEOAIAAAABOQIAAAABOgIAAAABOwIAAAABPAIAPwAhCDUIAAAAATYIAAAABDcIAAAABDgIAAAAATkIAAAAAToIAAAAATsIAAAAATwIAEAAIQksAABBADAtAAAdABAuAABBADAvAgBCACEwAQBDACExEABEACEyAQBDACEzAQBDACE0QABFACEINQIAAAABNgIAAAAENwIAAAAEOAIAAAABOQIAAAABOgIAAAABOwIAAAABPAIAOQAhCzUBAAAAATYBAAAABDcBAAAABDgBAAAAATkBAAAAAToBAAAAATsBAAAAATwBAD4AIT0BAAAAAT4BAAAAAT8BAAAAAQg1EAAAAAE2EAAAAAQ3EAAAAAQ4EAAAAAE5EAAAAAE6EAAAAAE7EAAAAAE8EAA8ACEINUAAAAABNkAAAAAEN0AAAAAEOEAAAAABOUAAAAABOkAAAAABO0AAAAABPEAAOgAhBiwAAEYAMC0AABcAEC4AAEYAMC8CADQAIUABADUAIUEBAEcAIQ4VAABJACAYAABKACAZAABKACA1AQAAAAE2AQAAAAU3AQAAAAU4AQAAAAE5AQAAAAE6AQAAAAE7AQAAAAE8AQBIACE9AQAAAAE-AQAAAAE_AQAAAAEOFQAASQAgGAAASgAgGQAASgAgNQEAAAABNgEAAAAFNwEAAAAFOAEAAAABOQEAAAABOgEAAAABOwEAAAABPAEASAAhPQEAAAABPgEAAAABPwEAAAABCDUCAAAAATYCAAAABTcCAAAABTgCAAAAATkCAAAAAToCAAAAATsCAAAAATwCAEkAIQs1AQAAAAE2AQAAAAU3AQAAAAU4AQAAAAE5AQAAAAE6AQAAAAE7AQAAAAE8AQBKACE9AQAAAAE-AQAAAAE_AQAAAAEGLAAASwAwLQAABAAQLgAASwAwLwIAQgAhQAEAQwAhQQEATAAhCzUBAAAAATYBAAAABTcBAAAABTgBAAAAATkBAAAAAToBAAAAATsBAAAAATwBAEoAIT0BAAAAAT4BAAAAAT8BAAAAAQAAAAAAAUIBAAAAAQVCEAAAAAFDEAAAAAFEEAAAAAFFEAAAAAFGEAAAAAEBQkAAAAABBUICAAAAAUMCAAAAAUQCAAAAAUUCAAAAAUYCAAAAAQAAAAAAAAFCAQAAAAEAAAAABRUABhYABxcACBgACRkACgAAAAAABRUABhYABxcACBgACRkACgAAAAUVABAWABEXABIYABMZABQAAAAAAAUVABAWABEXABIYABMZABQBAgECAwEFBgEGBwEHCAEJCgEKDAILDQMMDwENEQIOEgQREwESFAETFQIaGAUbGQscGwwdHAweHwwfIAwgIQwhIwwiJQIjJg0kKAwlKgImKw4nLAwoLQwpLgIqMQ8rMhU"
-}
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Usuario\":{\"dbName\":\"usuario\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"email\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"nome\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"senha\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Exame\":{\"dbName\":\"exame\",\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Int\",\"nativeType\":null,\"default\":{\"name\":\"autoincrement\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"tipo_exame\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"valor\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Decimal\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"descricao\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"resultado\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"data_exame\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"DateTime\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
+config.engineWasm = undefined
+config.compilerWasm = undefined
 
-async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
-  const { Buffer } = await import('node:buffer')
-  const wasmArray = Buffer.from(wasmBase64, 'base64')
-  return new WebAssembly.Module(wasmArray)
-}
-
-config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
-
-  getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs")
-    return await decodeBase64AsWasm(wasm)
-  },
-
-  importName: "./query_compiler_fast_bg.js"
-}
 
 
 
@@ -67,14 +83,12 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient({
-   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
-   * })
+   * const prisma = new PrismaClient()
    * // Fetch zero or more Usuarios
    * const usuarios = await prisma.usuario.findMany()
    * ```
    * 
-   * Read more in our [docs](https://pris.ly/d/client).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
    */
 
   new <
@@ -82,7 +96,7 @@ export interface PrismaClientConstructor {
     LogOpts extends LogOptions<Options> = LogOptions<Options>,
     OmitOpts extends Prisma.PrismaClientOptions['omit'] = Options extends { omit: infer U } ? U : Prisma.PrismaClientOptions['omit'],
     ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-  >(options: Prisma.Subset<Options, Prisma.PrismaClientOptions> ): PrismaClient<LogOpts, OmitOpts, ExtArgs>
+  >(options?: Prisma.Subset<Options, Prisma.PrismaClientOptions> ): PrismaClient<LogOpts, OmitOpts, ExtArgs>
 }
 
 /**
@@ -91,19 +105,17 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient({
- *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
- * })
+ * const prisma = new PrismaClient()
  * // Fetch zero or more Usuarios
  * const usuarios = await prisma.usuario.findMany()
  * ```
  * 
- * Read more in our [docs](https://pris.ly/d/client).
+ * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client).
  */
 
 export interface PrismaClient<
   in LogOpts extends Prisma.LogLevel = never,
-  in out OmitOpts extends Prisma.PrismaClientOptions['omit'] = undefined,
+  in out OmitOpts extends Prisma.PrismaClientOptions['omit'] = Prisma.PrismaClientOptions['omit'],
   in out ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -127,7 +139,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRaw`UPDATE User SET cool = ${true} WHERE email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -139,7 +151,7 @@ export interface PrismaClient<
    * const result = await prisma.$executeRawUnsafe('UPDATE User SET cool = $1 WHERE email = $2 ;', true, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $executeRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<number>;
 
@@ -150,7 +162,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRaw`SELECT * FROM User WHERE id = ${1} OR email = ${'user@email.com'};`
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRaw<T = unknown>(query: TemplateStringsArray | Prisma.Sql, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -162,7 +174,7 @@ export interface PrismaClient<
    * const result = await prisma.$queryRawUnsafe('SELECT * FROM User WHERE id = $1 OR email = $2;', 1, 'user@email.com')
    * ```
    *
-   * Read more in our [docs](https://pris.ly/d/raw-queries).
+   * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/raw-database-access).
    */
   $queryRawUnsafe<T = unknown>(query: string, ...values: any[]): Prisma.PrismaPromise<T>;
 
@@ -178,11 +190,12 @@ export interface PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => runtime.Types.Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<R>
+
 
   $extends: runtime.Types.Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<OmitOpts>, ExtArgs, runtime.Types.Utils.Call<Prisma.TypeMapCb<OmitOpts>, {
     extArgs: ExtArgs
@@ -209,6 +222,7 @@ export interface PrismaClient<
   get exame(): Prisma.ExameDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
-export function getPrismaClientClass(): PrismaClientConstructor {
+export function getPrismaClientClass(dirname: string): PrismaClientConstructor {
+  config.dirname = dirname
   return runtime.getPrismaClient(config) as unknown as PrismaClientConstructor
 }

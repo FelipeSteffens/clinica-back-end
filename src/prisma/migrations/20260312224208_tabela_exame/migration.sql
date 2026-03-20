@@ -12,6 +12,7 @@ CREATE TABLE "usuario" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "nome" TEXT,
+    "senha" TEXT NOT NULL,
 
     CONSTRAINT "usuario_pkey" PRIMARY KEY ("id")
 );

@@ -1,6 +1,8 @@
 import express from 'express';
 import { prisma } from './prisma/prisma';
 import type { Exame, Usuario } from './prisma/generated/prisma/client';
+import bcrypt from "bcrypt";
+
 
 const app = express();
 app.use(express.json())
@@ -31,10 +33,14 @@ app.get('/usuarios/:id', async (req, res) => {
 app.post("/usuarios", async (req, res) => {
   console.log(req.body)
   const dadosUsuario = req.body as Usuario
+  const saltRounds = 10
+  const hash = await bcrypt.hash(dadosUsuario.senha, saltRounds)
+ 
   const usuarioCriado = await prisma.usuario.create({
     data: {
       email: dadosUsuario.email,
-      nome: dadosUsuario.nome || null
+      nome: dadosUsuario.nome || null,
+      senha: hash
     }
   })
   return res.status(201).json(usuarioCriado)
@@ -43,10 +49,13 @@ app.post("/usuarios", async (req, res) => {
 app.put("/usuarios/:id", async (req, res) => {
   const idUsuario = Number(req.params.id)
   const dadosParaAtualizar = req.body as Omit<Usuario, 'id'>
+  const saltRounds = 10
+  const hash = await bcrypt.hash(dadosParaAtualizar.senha, saltRounds)
 
   const usuarioAtualizado = await prisma.usuario.update({
     data: {
-      ...dadosParaAtualizar
+      ...dadosParaAtualizar,
+      senha: hash
     },
     where: {
       id: idUsuario

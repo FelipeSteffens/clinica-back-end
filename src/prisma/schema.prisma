@@ -11,12 +11,14 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = "postgresql://postgres:senai@localhost:5432/clinic?schema=public"
 }
 
 model Usuario {
   id    Int     @id @default(autoincrement())
   email String  @unique
   nome  String?
+  senha String
 
   @@map("usuario")
 }
