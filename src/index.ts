@@ -1,8 +1,8 @@
 import express from 'express';
 import { prisma } from './prisma/prisma';
-import type { Exame, Usuario } from './prisma/generated/prisma/client';
-import bcrypt from "bcrypt";
-
+import type { Exame, Usuario, TypeToken } from './prisma/generated/prisma/client';
+import { createHash } from './utils/createHash';
+import bcrypt from "bcrypt"
 
 const app = express();
 app.use(express.json())
@@ -30,12 +30,10 @@ app.get('/usuarios/:id', async (req, res) => {
   return res.status(200).json(usuario);
 })
 
-app.post("/usuarios", async (req, res) => {
+app.post("/cadastro", async (req, res) => {
   console.log(req.body)
   const dadosUsuario = req.body as Usuario
-  const saltRounds = 10
-  const hash = await bcrypt.hash(dadosUsuario.senha, saltRounds)
- 
+  const hash = await createHash(dadosUsuario.senha);
   const usuarioCriado = await prisma.usuario.create({
     data: {
       email: dadosUsuario.email,
@@ -46,16 +44,33 @@ app.post("/usuarios", async (req, res) => {
   return res.status(201).json(usuarioCriado)
 })
 
+app.post("/login", async (req, res) => {
+  const dadosUsuario = req.body as Usuario
+  const usuario = await prisma.usuario.findUnique({
+    where: {
+      email: dadosUsuario.email
+    }
+  });
+
+  if (!usuario) {
+    return res.status(404).json({ mensagem: "Usuário não encontrado" });
+  }
+
+  const senhaCorreta = await bcrypt.compare(dadosUsuario.senha, usuario.senha);
+  const usuarioCorreto = await bcrypt.compare(dadosUsuario.email, usuario.email);
+  if (!senhaCorreta && !usuarioCorreto) {
+    return res.status(401).json({ mensagem: "Senha ou usuario incorreto" });
+  }
+  return res.status(200).json({ mensagem: "Login bem-sucedido" });
+});
+
 app.put("/usuarios/:id", async (req, res) => {
   const idUsuario = Number(req.params.id)
   const dadosParaAtualizar = req.body as Omit<Usuario, 'id'>
-  const saltRounds = 10
-  const hash = await bcrypt.hash(dadosParaAtualizar.senha, saltRounds)
 
   const usuarioAtualizado = await prisma.usuario.update({
     data: {
-      ...dadosParaAtualizar,
-      senha: hash
+      ...dadosParaAtualizar
     },
     where: {
       id: idUsuario
@@ -80,7 +95,6 @@ app.delete('/usuarios/:id', async (req, res) => {
 })
 
 //Exames
-
 app.get('/exames', async (_, res) => {
   const exames = await prisma.exame.findMany();
   return res.json(exames);
@@ -93,19 +107,19 @@ app.get('/exames/:id', async (req, res) => {
       id: idExame
     }
   })
-    return res.status(200).json(exame);
+
+  return res.status(200).json(exame);
 })
 
-app.post('/exames', async (req, res) => {
-  console.log(req.body)
+app.post("/exames", async (req, res) => {
   const dadosExame = req.body as Exame
   const exameCriado = await prisma.exame.create({
     data: {
       tipo_exame: dadosExame.tipo_exame,
       valor: dadosExame.valor,
       descricao: dadosExame.descricao,
-      resultado: dadosExame.resultado,
-      data_exame: dadosExame.data_exame
+      data_exame: new Date(dadosExame.data_exame),
+      resultado: dadosExame.resultado
     }
   })
   return res.status(201).json(exameCriado)
@@ -113,11 +127,12 @@ app.post('/exames', async (req, res) => {
 
 app.put("/exames/:id", async (req, res) => {
   const idExame = Number(req.params.id)
-  const exameParaAtualizar = req.body as Omit<Exame, 'id'>
+  const dadosParaAtualizar = req.body as Omit<Exame, 'id'>
 
   const exameAtualizado = await prisma.exame.update({
     data: {
-      ...exameParaAtualizar, data_exame: new Date (exameParaAtualizar.data_exame)
+      ...dadosParaAtualizar,
+      data_exame: new Date(dadosParaAtualizar.data_exame)
     },
     where: {
       id: idExame
@@ -134,8 +149,9 @@ app.delete('/exames/:id', async (req, res) => {
       id: idExame
     }
   })
-    return res.status(200).json({
-    mensagem: "Usuário deletado com sucesso!",
+
+  return res.status(200).json({
+    mensagem: "Exame deletado com sucesso!",
     data: exameDeletado
   });
 })
