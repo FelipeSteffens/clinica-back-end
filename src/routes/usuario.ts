@@ -1,30 +1,26 @@
 import { Router } from "express";
-import { userRepository } from "../repositories/UserRepository";
 import { userController } from "../controllers/UserController";
 
 export const usuarioRouter = Router();
 
 // Endpoints usuario
 usuarioRouter.get('/usuarios', async (_, res) => {
-  
-  return userController.buscar(_, res)
+  return userController.listarTodosUsuarios(_, res)
 })
 
 usuarioRouter.get('/usuarios/:id', async (req, res) => {
-  return userController.buscarPorId(req, res)
+  return userController.buscarUsuarioId(req, res)
 })
 
 usuarioRouter.post("/usuarios", async (req, res) => {
- return userController.cadastrar(req, res)
+  return userController.criarUsuario(req, res)
 })
 
 
 usuarioRouter.put("/usuarios/:id", async (req, res) => {
-  return userController.atualizar(req,res)
+  return userController.atualizarUsuario(req, res)
 })
 
 usuarioRouter.delete('/usuarios/:id', async (req, res) => {
-  return userController.deletar(req, res)
+  return userController.deletarUsuario(req, res)
 })
-  
-  

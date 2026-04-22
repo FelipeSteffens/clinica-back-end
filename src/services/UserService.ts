@@ -1,43 +1,43 @@
 import type { Usuario } from "../prisma/generated/prisma/client";
-import { userRepository } from "../repositories/UserRepository";
 import { createHash } from "../utils/createHash";
+import bcrypt from "bcrypt";
+import { userRepository, type UserRepository } from "../repositories/UserRepository";
 
 export class UserService {
-  constructor(private readonly repository: any) {}
+    constructor(private readonly repository: UserRepository) { // TO-DO TIPAR SERVICE
+    }
 
-  async cadastrar(dadosUsuario: Usuario) {
-    const hash = await createHash(dadosUsuario.senha);
+    async listarTodosUsuarios() {
+        const usuarios = await this.repository.listarTodosUsuarios()
+        return usuarios
+    }
 
-    const usuarioCriado = await this.repository.cadastrar({
-      email: dadosUsuario.email,
-      nome: dadosUsuario.nome || null,
-      senha: hash,
-    });
-    return usuarioCriado;
-  }
-  async buscarPorId(id: Number) {
-    const usuario = await this.repository.buscarPorId(id);
+    async criarUsuario(dadosUsuario: Usuario) {
+        const hash = await createHash(dadosUsuario.senha);
 
-    return usuario;
-  }
+        const usuarioCriado = await this.repository.criarUsuario({
+            email: dadosUsuario.email,
+            nome: dadosUsuario.nome || null,
+            senha: hash
+        })
+        return usuarioCriado
+    }
 
-  async buscar() {
-    const buscarDados = await this.repository.buscar();
+    async buscarUsuarioId(idUsuario: number) {
+        const usuario = await this.repository.buscarUsuarioId(idUsuario);
+        return usuario;
+    }
 
-    return buscarDados;
-  }
+    async atualizarUsuario(idUsuario: number, dadosParaAtualizar: Omit<Usuario, 'id'>) {
+        const usuarioAtualizado = await this.repository.atualizarUsuario(idUsuario, dadosParaAtualizar)
+        return usuarioAtualizado;
+    }
 
-  async atualizar(dadosUsuario: Usuario) {
-    const usuarioAtualizado = await this.repository.atualizar(dadosUsuario);
 
-    return usuarioAtualizado;
-  }
-
-  async deletar(id: Number) {
-    const usuarioDeletado = await this.repository.deletar(id);
-
-    return usuarioDeletado;
-  }
+    async deletarUsuario(idUsuario: number) {
+        const usuario = await this.repository.deletarUsuario(idUsuario);
+        return usuario;
+    }
 }
 
 export const userService = new UserService(userRepository)
